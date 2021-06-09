@@ -1,33 +1,65 @@
-import React from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  FlatList,
+  ActivityIndicator,
+  Text,
+  StyleSheet,
+} from 'react-native';
+import Http from '../../libs/http';
+import CoinstItem from './CoinsItem';
+import Colors from '../../resources/colors';
+import CoinsSearch from '../coinDetail/CoinsSearch';
 
 const CoinsScreen = props => {
-  const handlePress = () => {
-    props.navigation.navigate('CoinDetail');
+  const [coins, setCoins] = useState('');
+  const [allCoins, setAllCoins] = useState('');
+  const [loading, setLoading] = useState('');
+
+  const handlePress = coin => {
+    props.navigation.navigate('CoinDetail', {coin});
   };
+
+  const handleGet = async () => {
+    try {
+      setLoading(true);
+      const response = await Http.instance.get(
+        'https://api.coinlore.net/api/tickers/',
+      );
+      setCoins(response.data);
+      setAllCoins(response.data);
+      setLoading(false);
+    } catch (error) {}
+  };
+
+  const handleSearch = query => {
+    const coinsFiltered = allCoins.filter(coin => {
+      return (
+        coin.name.toLowerCase().includes(query.toLowerCase()) ||
+        coin.symbol.toLowerCase().includes(query.toLowerCase())
+      );
+    });
+    setCoins(coinsFiltered);
+  };
+
+  useEffect(() => handleGet(), []);
 
   const styles = StyleSheet.create({
     container: {
-      alignItems: 'center',
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-    button: {
-      borderRadius: 10,
-      backgroundColor: 'darkcyan',
-      marginTop: 10,
-      padding: 10,
+      backgroundColor: Colors.charade,
     },
   });
 
   return (
     <View style={styles.container}>
-      <Text>Coins Screen</Text>
-      <Pressable style={styles.button} onPress={handlePress}>
-        <Text>Ir a detail</Text>
-      </Pressable>
+      <CoinsSearch onChange={handleSearch} />
+      {loading ? <ActivityIndicator color="#fff" size="large" /> : null}
+      <FlatList
+        data={coins}
+        renderItem={({item}) => (
+          <CoinstItem onPress={() => handlePress(item)} item={item} />
+        )}
+      />
     </View>
   );
 };
