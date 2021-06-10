@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DarkTheme} from '@react-navigation/native';
 import CoinsStack from './src/components/coins/CoinsStack';
 import FavoritesStack from './src/components/favorites/FavoritesStack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,7 +10,9 @@ const Tabs = createBottomTabNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
+    // El DarkTheme lo que hace es añadir un fondo negro a toda la pantalla de fondo
+    // sin esto la aplicación tendría un mal efecto de un 'white flashing screen'
+    <NavigationContainer theme={DarkTheme}>
       <Tabs.Navigator
         tabBarOptions={{
           tintColor: '#fefefe',
