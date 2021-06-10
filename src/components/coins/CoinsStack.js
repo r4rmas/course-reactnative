@@ -15,7 +15,7 @@ const CoinsStack = () => {
           shadowColor: Colors.blackPearl,
           shadowOpacity: 0,
         },
-        headerTintColor: Colors.white,
+        headerTintColor: '#fff',
       }}>
       <Stack.Screen name="Coins" component={CoinsScreen} />
       <Stack.Screen name="CoinDetail" component={CoinDetailScreen} />

@@ -14,7 +14,7 @@ const FavoritesStack = () => {
           shadowColor: Colors.blackPearl,
           shadowOpacity: 0,
         },
-        headerTintColor: Colors.white,
+        headerTintColor: '#fff',
       }}>
       <Stack.Screen name="Favorites" component={FavoritesScreen} />
     </Stack.Navigator>

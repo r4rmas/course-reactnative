@@ -23,14 +23,14 @@ const App = () => {
           component={CoinsStack}
           options={{
             tabBarLabel: ({focused}) => (
-              <Text style={{color: focused ? '#fff' : Colors.picton}}>
+              <Text style={{color: focused ? Colors.picton : Colors.gray}}>
                 Coins
               </Text>
             ),
             tabBarIcon: ({focused}) => (
               <Image
                 style={{
-                  tintColor: focused ? '#fff' : Colors.picton,
+                  tintColor: focused ? Colors.picton : Colors.gray,
                   width: 28,
                   height: 28,
                 }}
@@ -44,14 +44,14 @@ const App = () => {
           component={FavoritesStack}
           options={{
             tabBarLabel: ({focused}) => (
-              <Text style={{color: focused ? '#fff' : Colors.picton}}>
+              <Text style={{color: focused ? Colors.picton : Colors.gray}}>
                 Favorites
               </Text>
             ),
             tabBarIcon: ({focused}) => (
               <Image
                 style={{
-                  tintColor: focused ? '#fff' : Colors.picton,
+                  tintColor: focused ? Colors.picton : Colors.gray,
                   width: 28,
                   height: 28,
                 }}

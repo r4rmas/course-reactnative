@@ -4,7 +4,7 @@ const colors = {
   zircon: '#e0e0e0',
   picton: '#3c6fc8',
   carmine: '#ef6372',
-  white: '#fff',
+  gray: '#cdcdcd',
 };
 
 export default colors;
