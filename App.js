@@ -1,6 +1,6 @@
 import React from 'react';
-import {Image} from 'react-native';
-import {NavigationContainer, DarkTheme} from '@react-navigation/native';
+import {Image, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import CoinsStack from './src/components/coins/CoinsStack';
 import FavoritesStack from './src/components/favorites/FavoritesStack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -10,9 +10,7 @@ const Tabs = createBottomTabNavigator();
 
 const App = () => {
   return (
-    // El DarkTheme lo que hace es añadir un fondo negro a toda la pantalla de fondo
-    // sin esto la aplicación tendría un mal efecto de un 'white flashing screen'
-    <NavigationContainer theme={DarkTheme}>
+    <NavigationContainer theme={BackgroundTheme}>
       <Tabs.Navigator
         tabBarOptions={{
           tintColor: '#fefefe',
@@ -24,9 +22,18 @@ const App = () => {
           name="Coins"
           component={CoinsStack}
           options={{
-            tabBarIcon: ({color}) => (
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#fff' : Colors.picton}}>
+                Coins
+              </Text>
+            ),
+            tabBarIcon: ({focused}) => (
               <Image
-                style={{tintColor: color, width: 28, height: 28}}
+                style={{
+                  tintColor: focused ? '#fff' : Colors.picton,
+                  width: 28,
+                  height: 28,
+                }}
                 source={require('./src/assets/bank.png')}
               />
             ),
@@ -36,9 +43,18 @@ const App = () => {
           name="Favorites"
           component={FavoritesStack}
           options={{
-            tabBarIcon: ({color}) => (
+            tabBarLabel: ({focused}) => (
+              <Text style={{color: focused ? '#fff' : Colors.picton}}>
+                Favorites
+              </Text>
+            ),
+            tabBarIcon: ({focused}) => (
               <Image
-                style={{tintColor: color, width: 28, height: 28}}
+                style={{
+                  tintColor: focused ? '#fff' : Colors.picton,
+                  width: 28,
+                  height: 28,
+                }}
                 source={require('./src/assets/star.png')}
               />
             ),
@@ -47,6 +63,13 @@ const App = () => {
       </Tabs.Navigator>
     </NavigationContainer>
   );
+};
+
+const BackgroundTheme = {
+  dark: true,
+  colors: {
+    background: Colors.charade,
+  },
 };
 
 export default App;
