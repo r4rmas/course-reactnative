@@ -7,6 +7,7 @@ import {
   FlatList,
   SectionList,
   Pressable,
+  Alert,
 } from 'react-native';
 import Http from '../../libs/http';
 import Colors from '../../resources/colors';
@@ -63,12 +64,38 @@ const CoinDetailScreeen = props => {
     } catch (error) {}
   };
 
-  const removeFavorite = () => {};
+  const removeFavorite = async () => {
+    Alert.alert('Remove favorite', 'Are you sure?', [
+      {
+        text: 'cancel',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: 'Remove',
+        onPress: async () => {
+          const key = `favorite-${coin.id}`;
+          await Storage.instance.remove(key);
+          setAsFavorite(false);
+        },
+        style: 'destructive',
+      },
+    ]);
+  };
+
+  const getFavorite = async () => {
+    try {
+      const key = `favorite-${coin.id}`;
+      const favStr = await Storage.instance.get(key);
+      if (favStr !== null) setAsFavorite(true);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     const {coin} = props.route.params;
     props.navigation.setOptions({title: coin.symbol});
     getMarkets(coin.id);
+    getFavorite();
     setCoin(coin);
   });
 
