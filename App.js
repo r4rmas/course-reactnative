@@ -15,7 +15,11 @@ const App = () => {
         tabBarOptions={{
           tintColor: '#fefefe',
           style: {
+            alignItems: 'center',
             backgroundColor: Colors.blackPearl,
+            height: 55,
+            paddingTop: 6,
+            paddingBottom: 6,
           },
         }}>
         <Tabs.Screen
